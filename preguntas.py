@@ -12,8 +12,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
-
-Import csv
+data_list=[]
 
 def pregunta_01():
     """
@@ -24,14 +23,12 @@ def pregunta_01():
 
     """
     with open("data.csv") as csv_f:
-
-    csv_reader = csv.reader(
-        csv_f,
-        delimiter=",",
-        quotechar='"',
+    
+    for i in csv_f
+        data_list.append(i[2])
     acum=0
-    for row in csv_reader:
-        acum=acum+row[1]
+    for i in data_list:
+        acum=acum+i
     
     return acum
 
