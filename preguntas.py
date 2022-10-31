@@ -50,9 +50,9 @@ def pregunta_02():
         for i in csv_f:
             data.append(i)
             
-            if i[0] is not in abc_list:
+            if i[0] not in abc_list:
                 abc_list.append((i[0],0))
-            if i[0] is in abc_list:
+            if i[0] in abc_list:
                 index=abc_list.index(i[0])
                 num=abc_list[index][1]
                 num=num+1
