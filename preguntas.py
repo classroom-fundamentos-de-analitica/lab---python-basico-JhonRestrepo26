@@ -13,6 +13,8 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
+    
+
 def pregunta_01():
     """
     Retorne la suma de la segunda columna.
@@ -21,6 +23,11 @@ def pregunta_01():
     214
 
     """
+    lista=[]
+    Open("data.csv") as file:
+        for i in file:
+            lista.append(i)
+    print(lista)
     return
 
 
