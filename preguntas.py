@@ -24,10 +24,8 @@ def pregunta_01():
     """
     acum=0
     with open("data.csv") as csv_f:
-    
         for i in csv_f:
-            acum=int(i[2])+acum
-            
+            acum=int(i[2])+acum       
     return acum
 
 
@@ -46,7 +44,21 @@ def pregunta_02():
     ]
 
     """
-    return
+
+    abc_list=[]
+    with open("data.csv") as csv_f:
+        for i in csv_f:
+            data.append(i)
+            
+            if i[0] is not in abc_list:
+                abc_list.append((i[0],0))
+            if i[0] is in abc_list:
+                index=abc_list.index(i[0])
+                num=abc_list[index][1]
+                num=num+1
+                abc_list[index][1].append(num)
+            abc_list.sort(key=str)
+    return abc_list
 
 
 def pregunta_03():
