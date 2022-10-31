@@ -47,9 +47,7 @@ def pregunta_02():
 
     abc_list=[]
     with open("data.csv") as csv_f:
-        for i in csv_f:
-            data.append(i)
-            
+        for i in csv_f:            
             if i[0] not in abc_list:
                 abc_list.append((i[0],0))
             if i[0] in abc_list:
