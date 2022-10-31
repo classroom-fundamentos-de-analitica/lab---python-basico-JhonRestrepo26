@@ -13,7 +13,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 """
 
 
-    
+Import csv
 
 def pregunta_01():
     """
@@ -23,12 +23,17 @@ def pregunta_01():
     214
 
     """
-    lista=[]
-    Open("data.csv") as file:
-        for i in file:
-            lista.append(i)
-    print(lista)
-    return
+    with open("data.csv") as csv_f:
+
+    csv_reader = csv.reader(
+        csv_f,
+        delimiter=",",
+        quotechar='"',
+    acum=0
+    for row in csv_reader:
+        acum=acum+row[1]
+    
+    return acum
 
 
 def pregunta_02():
