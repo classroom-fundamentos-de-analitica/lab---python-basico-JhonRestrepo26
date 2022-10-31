@@ -26,7 +26,7 @@ def pregunta_01():
     with open("data.csv") as csv_f:
     
         for i in csv_f:
-            acum=i[2]+acum
+            acum=int(i[2])+acum
             
     return acum
 
