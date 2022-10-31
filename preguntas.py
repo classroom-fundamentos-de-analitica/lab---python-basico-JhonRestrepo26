@@ -12,7 +12,6 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 
-data_list=[]
 
 def pregunta_01():
     """
