@@ -22,14 +22,12 @@ def pregunta_01():
     214
 
     """
+    acum=0
     with open("data.csv") as csv_f:
     
-        for i in csv_f
-            data_list.append(i[2])
-        acum=0
-        for i in data_list:
-            acum=acum+i
-    
+        for i in csv_f:
+            acum=i[2]+acum
+            
     return acum
 
 
