@@ -62,7 +62,7 @@ def pregunta_02():
         counts.append(count_aux)
     
     zipped = zip(letters, counts)
-    answer2=display([*zipped])
+    answer2=[*zipped]
     return answer2
 
 
