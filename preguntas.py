@@ -43,19 +43,26 @@ def pregunta_02():
     ]
 
     """
-
-    abc_list=[]
-    with open("data.csv") as csv_f:
-        for i in csv_f:            
-            if i[0] not in abc_list:
-                abc_list.append((i[0],0))
-            if i[0] in abc_list:
-                index=abc_list.index(i[0])
-                num=abc_list[index][1]
-                num=num+1
-                abc_list[index][1].append(num)
-            abc_list.sort(key=str)
-    return abc_list
+    
+    
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [z.split(",") for z in x]
+    letters=[]
+    for letter in x:
+        if letter[0] not in letters:
+            letters.append(letter[0])
+    letters.sort()
+    counts=[]
+    for i in letters:
+        count_aux=0
+        for j in x:
+            if j[0]==i:
+                count_aux+=1
+        counts.append(count_aux)
+    
+    zipped = zip(letters, counts)
+    return display([*zipped])
 
 
 def pregunta_03():
