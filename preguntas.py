@@ -65,7 +65,6 @@ def pregunta_02():
     answer2=[*zipped]
     return answer2
 
-
 def pregunta_03():
     """
     Retorne la suma de la columna 2 por cada letra de la primera columna como una lista
@@ -81,9 +80,26 @@ def pregunta_03():
     ]
 
     """
-    return
-
-
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [z.split(",") for z in x]
+    letters=[]
+    for letter in x:
+        if letter[0] not in letters:
+            letters.append(letter[0])
+    letters.sort()
+    counts=[]
+    for i in letters:
+        count_aux=0
+        for j in x:
+            if j[0]==i:
+                count_aux+=int(j[1])
+        counts.append(count_aux)
+    
+    zipped = zip(letters, counts)
+    answer3=[*zipped]
+    return answer3    
+    
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la cantidad de
@@ -106,7 +122,28 @@ def pregunta_04():
     ]
 
     """
-    return
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [z.split(",") for z in x]
+    
+    dates=[z[2].split("-") for z in x]
+    months=[]
+    for date in dates:
+        if date[1] not in months:
+            months.append(date[1])
+    months.sort()
+    
+    counts=[]
+    for i in months:
+        count_aux=0
+        for j in dates:
+            if j[1]==i:
+                count_aux+=1
+        counts.append(count_aux)
+    
+    zipped = zip(months, counts)
+    answer4=[*zipped]
+    return answer4
 
 
 def pregunta_05():
@@ -124,6 +161,28 @@ def pregunta_05():
     ]
 
     """
+    x = open("data.csv", "r").readlines()
+    x = [z.replace("\n", "") for z in x]
+    x = [z.split(",") for z in x]
+    letters=[]
+    for letter in x:
+        if letter[0] not in letters:
+            letters.append(letter[0])
+    letters.sort()
+    
+    major=[]
+    fewer=[]
+    for i in letters:
+        aux=[]
+        for j in x:
+            if j[0]==i:
+                aux.append(j[1])
+        major.append(max(aux))
+        fewer.append(min(aux))
+    
+    zipped=zip(letters,major,fewer)
+    answer5=[*zipped] 
+    
     return
 
 
@@ -149,6 +208,9 @@ def pregunta_06():
     ]
 
     """
+    
+    
+    
     return
 
 
