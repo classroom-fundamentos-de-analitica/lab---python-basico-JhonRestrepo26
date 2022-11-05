@@ -12,7 +12,7 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 """
 #Data preparation
-x=open("/tmp/data2.csv","r").readlines()    #Lee
+x=open("data.csv","r").readlines()    #Lee
 x = [z.replace("\n", "") for z in x]        #Quita retorno de carro
 x = [z.replace("\t", ",") for z in x]       #Separa por columnas
 x = [z.split(",") for z in x]               #Enlistado de listas
