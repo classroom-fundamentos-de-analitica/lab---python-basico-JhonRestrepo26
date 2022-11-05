@@ -185,8 +185,8 @@ def pregunta_05():
         for j in x:
             if j[0]==i:
                 aux.append(j[1])
-        major.append(max(aux))
-        fewer.append(min(aux))
+        major.append(int(max(aux)))
+        fewer.append(int(min(aux)))
     
     zipped=zip(letters,major,fewer)
     answer5=[*zipped] 
