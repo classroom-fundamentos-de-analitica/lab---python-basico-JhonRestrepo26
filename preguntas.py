@@ -216,10 +216,28 @@ def pregunta_06():
     ]
 
     """
+    keys=[]
+    fewer=[]
+    major=[]
+
+    for i in x:
+      for j in i[4].keys():
+        if j not in keys:
+          keys.append(j)
+    keys=sorted(keys)
+
+    for i in keys:
+      aux=[]
+      for j in x:
+        if i in j[4]:
+          aux.append(j[4][i])
+      fewer.append(int(min(aux)))
+      major.append(int(max(aux)))
+
+    zipped=zip(keys,fewer,major)
+    answer6=[*zipped]
     
-    
-    
-    return
+    return answer6
 
 
 def pregunta_07():
@@ -243,7 +261,27 @@ def pregunta_07():
     ]
 
     """
-    return
+    numbers=[]
+
+    for i in x:
+      if int(i[1]) not in numbers:
+        numbers.append(int(i[1]))
+    numbers=sorted(numbers)
+
+    set_letters=[]
+
+    for i in numbers:
+      aux=[]
+      for j in x:
+        if i==int(j[1]):
+          aux.append(j[0])
+      set_letters.append(aux)
+    set_letters
+
+    zipped=zip(numbers,set_letters)
+    answer7=[*zipped]
+    
+    return answer7
 
 
 def pregunta_08():
@@ -268,7 +306,28 @@ def pregunta_08():
     ]
 
     """
-    return
+    numbers=[]
+
+    for i in x:
+      if int(i[1]) not in numbers:
+        numbers.append(int(i[1]))
+    numbers=sorted(numbers)
+
+    set_letters=[]
+
+    for i in numbers:
+      aux=[]
+      for j in x:
+        if i==int(j[1]):
+          if j[0] not in aux:
+            aux.append(j[0])
+      aux.sort(key=str)
+      set_letters.append(aux)
+
+    zipped=zip(numbers,set_letters)
+    answer8=[*zipped]
+    
+    return answer8
 
 
 def pregunta_09():
@@ -291,7 +350,25 @@ def pregunta_09():
     }
 
     """
-    return
+    keys=[]
+
+    for i in x:
+      for j in i[4].keys():
+        if j not in keys:
+          keys.append(j)
+    keys=sorted(keys)
+
+    value_count=[]
+    for i in keys:
+      count=0
+      for j in x:
+        if i in j[4]:
+          count+=1
+      value_count.append(count)
+
+    answer9={keys[i]:value_count[i] for i in range(len(value_count))}
+    
+    return answer9
 
 
 def pregunta_10():
@@ -312,7 +389,13 @@ def pregunta_10():
 
 
     """
-    return
+    col1=[i[0] for i in x]
+    col4=[len(i[3]) for i in x]
+    col5=[len(i[4]) for i in x]
+    zipped=zip(col1,col4,col5)
+    answer10=[*zipped]
+    
+    return answer10
 
 
 def pregunta_11():
@@ -333,7 +416,24 @@ def pregunta_11():
 
 
     """
-    return
+    letters=[]
+    for row in x:
+      for i in row[3]:
+        if i not in letters:
+            letters.append(i)
+    letters.sort()
+
+    count_list=[]
+    for i in letters:
+      count=0
+      for j in x:
+        if i in j[3]:
+          count+=int(j[1])
+      count_list.append(count)
+
+    answer11={letters[i]:count_list[i] for i in range(len(letters))}
+    
+    return answer11
 
 
 def pregunta_12():
@@ -351,4 +451,22 @@ def pregunta_12():
     }
 
     """
-    return
+    letters=[]
+    for row in x:
+      for i in row[0]:
+        if i not in letters:
+            letters.append(i)
+    letters.sort()
+
+    count_value=[]
+    for i in letters:
+      count=0
+      for j in x:
+        if i==j[0]:
+          for k in j[4]:
+            count+=int(j[4][k])
+      count_value.append(count)
+
+    answer12={letters[i]:count_value[i] for i in range(len(letters))}
+    
+    return answer12
