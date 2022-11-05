@@ -11,6 +11,31 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+#Data preparation
+x=open("/tmp/data2.csv","r").readlines()    #Lee
+x = [z.replace("\n", "") for z in x]        #Quita retorno de carro
+x = [z.replace("\t", ",") for z in x]       #Separa por columnas
+x = [z.split(",") for z in x]               #Enlistado de listas
+#Convirtiendo columna 4 en lista y la 5 en diccionario, para facilitar manipulación...
+for j in range(len(x)):
+  letras=[]
+  numeros=[]
+  for i in x[j]:
+    if ":" in i:
+      index=x[j].index(i)
+      xd=x[j][3:index]
+      semi_list=x[j][index:]
+      semi_list=tuple(iter(semi_list))                              #paso el dic a tupla
+      prueba=",".join(iter(semi_list)).replace(":",",").split(",")  #paso tupla a string, reemplazo : por , y convierto cada elemento en elementos de una lista
+      for k in prueba:
+        if k.isdigit():
+          numeros.append(k)
+        else:
+          letras.append(k)
+      dic={letras[l]:int(numeros[l]) for l in range(len(letras))}
+      del x[j][3:]
+      x[j].insert(4,dic)
+      x[j].insert(3,xd)                                             #Note que x es la base de datos, estructurada
 
 
 def pregunta_01():
@@ -21,11 +46,10 @@ def pregunta_01():
     214
 
     """
-    acum=0
-    with open("data.csv") as csv_f:
-        for i in csv_f:
-            acum=int(i[2])+acum       
-    return acum
+    sum=0
+    for i in x:
+        sum+=int(i[1])
+    return sum
 
 
 def pregunta_02():
@@ -44,10 +68,6 @@ def pregunta_02():
 
     """
     
-    
-    x = open("data.csv", "r").readlines()
-    x = [z.replace("\n", "") for z in x]
-    x = [z.split(",") for z in x]
     letters=[]
     for letter in x:
         if letter[0] not in letters:
@@ -78,9 +98,6 @@ def pregunta_03():
     ]
 
     """
-    x = open("data.csv", "r").readlines()
-    x = [z.replace("\n", "") for z in x]
-    x = [z.split(",") for z in x]
     letters=[]
     for letter in x:
         if letter[0] not in letters:
@@ -120,10 +137,6 @@ def pregunta_04():
     ]
 
     """
-    x = open("data.csv", "r").readlines()
-    x = [z.replace("\n", "") for z in x]
-    x = [z.split(",") for z in x]
-    
     dates=[z[2].split("-") for z in x]
     months=[]
     for date in dates:
@@ -159,9 +172,6 @@ def pregunta_05():
     ]
 
     """
-    x = open("data.csv", "r").readlines()
-    x = [z.replace("\n", "") for z in x]
-    x = [z.split(",") for z in x]
     letters=[]
     for letter in x:
         if letter[0] not in letters:
@@ -181,7 +191,7 @@ def pregunta_05():
     zipped=zip(letters,major,fewer)
     answer5=[*zipped] 
     
-    return
+    return answer5
 
 
 def pregunta_06():
