@@ -11,6 +11,31 @@ Utilice el archivo `data.csv` para resolver las preguntas.
 
 
 """
+#Data preparation
+x=open("data.csv","r").readlines()    #Lee
+x = [z.replace("\n", "") for z in x]        #Quita retorno de carro
+x = [z.replace("\t", ",") for z in x]       #Separa por columnas
+x = [z.split(",") for z in x]               #Enlistado de listas
+#Convirtiendo columna 4 en lista y la 5 en diccionario, para facilitar manipulación...
+for j in range(len(x)):
+  letras=[]
+  numeros=[]
+  for i in x[j]:
+    if ":" in i:
+      index=x[j].index(i)
+      xd=x[j][3:index]
+      semi_list=x[j][index:]
+      semi_list=tuple(iter(semi_list))                              #paso el dic a tupla
+      prueba=",".join(iter(semi_list)).replace(":",",").split(",")  #paso tupla a string, reemplazo : por , y convierto cada elemento en elementos de una lista
+      for k in prueba:
+        if k.isdigit():
+          numeros.append(k)
+        else:
+          letras.append(k)
+      dic={letras[l]:int(numeros[l]) for l in range(len(letras))}
+      del x[j][3:]
+      x[j].insert(4,dic)
+      x[j].insert(3,xd)                                             #Note que x es la base de datos, estructurada
 
 
 def pregunta_01():
@@ -21,7 +46,10 @@ def pregunta_01():
     214
 
     """
-    return
+    sum=0
+    for i in x:
+        sum+=int(i[1])
+    return sum
 
 
 def pregunta_02():
@@ -39,8 +67,21 @@ def pregunta_02():
     ]
 
     """
-    return
-
+    
+    letters=[]
+    for letter in x:
+        if letter[0] not in letters:
+            letters.append(letter[0])
+    letters.sort()
+    counts=[]
+    for i in letters:
+        count_aux=0
+        for j in x:
+            if j[0]==i:
+                count_aux+=1
+        counts.append(count_aux)
+    
+    return [(letters[i] ,counts[i] ) for i in range(len(letters))]
 
 def pregunta_03():
     """
@@ -57,9 +98,23 @@ def pregunta_03():
     ]
 
     """
-    return
-
-
+    letters=[]
+    for letter in x:
+        if letter[0] not in letters:
+            letters.append(letter[0])
+    letters.sort()
+    counts=[]
+    for i in letters:
+        count_aux=0
+        for j in x:
+            if j[0]==i:
+                count_aux+=int(j[1])
+        counts.append(count_aux)
+    
+    zipped = zip(letters, counts)
+    answer3=[*zipped]
+    return answer3    
+    
 def pregunta_04():
     """
     La columna 3 contiene una fecha en formato `YYYY-MM-DD`. Retorne la cantidad de
@@ -82,7 +137,24 @@ def pregunta_04():
     ]
 
     """
-    return
+    dates=[z[2].split("-") for z in x]
+    months=[]
+    for date in dates:
+        if date[1] not in months:
+            months.append(date[1])
+    months.sort()
+    
+    counts=[]
+    for i in months:
+        count_aux=0
+        for j in dates:
+            if j[1]==i:
+                count_aux+=1
+        counts.append(count_aux)
+    
+    zipped = zip(months, counts)
+    answer4=[*zipped]
+    return answer4
 
 
 def pregunta_05():
@@ -100,7 +172,26 @@ def pregunta_05():
     ]
 
     """
-    return
+    letters=[]
+    for letter in x:
+        if letter[0] not in letters:
+            letters.append(letter[0])
+    letters.sort()
+    
+    major=[]
+    fewer=[]
+    for i in letters:
+        aux=[]
+        for j in x:
+            if j[0]==i:
+                aux.append(j[1])
+        major.append(int(max(aux)))
+        fewer.append(int(min(aux)))
+    
+    zipped=zip(letters,major,fewer)
+    answer5=[*zipped] 
+    
+    return answer5
 
 
 def pregunta_06():
@@ -125,7 +216,28 @@ def pregunta_06():
     ]
 
     """
-    return
+    keys=[]
+    fewer=[]
+    major=[]
+
+    for i in x:
+      for j in i[4].keys():
+        if j not in keys:
+          keys.append(j)
+    keys=sorted(keys)
+
+    for i in keys:
+      aux=[]
+      for j in x:
+        if i in j[4]:
+          aux.append(j[4][i])
+      fewer.append(int(min(aux)))
+      major.append(int(max(aux)))
+
+    zipped=zip(keys,fewer,major)
+    answer6=[*zipped]
+    
+    return answer6
 
 
 def pregunta_07():
@@ -149,7 +261,27 @@ def pregunta_07():
     ]
 
     """
-    return
+    numbers=[]
+
+    for i in x:
+      if int(i[1]) not in numbers:
+        numbers.append(int(i[1]))
+    numbers=sorted(numbers)
+
+    set_letters=[]
+
+    for i in numbers:
+      aux=[]
+      for j in x:
+        if i==int(j[1]):
+          aux.append(j[0])
+      set_letters.append(aux)
+    set_letters
+
+    zipped=zip(numbers,set_letters)
+    answer7=[*zipped]
+    
+    return answer7
 
 
 def pregunta_08():
@@ -174,7 +306,28 @@ def pregunta_08():
     ]
 
     """
-    return
+    numbers=[]
+
+    for i in x:
+      if int(i[1]) not in numbers:
+        numbers.append(int(i[1]))
+    numbers=sorted(numbers)
+
+    set_letters=[]
+
+    for i in numbers:
+      aux=[]
+      for j in x:
+        if i==int(j[1]):
+          if j[0] not in aux:
+            aux.append(j[0])
+      aux.sort(key=str)
+      set_letters.append(aux)
+
+    zipped=zip(numbers,set_letters)
+    answer8=[*zipped]
+    
+    return answer8
 
 
 def pregunta_09():
@@ -197,7 +350,25 @@ def pregunta_09():
     }
 
     """
-    return
+    keys=[]
+
+    for i in x:
+      for j in i[4].keys():
+        if j not in keys:
+          keys.append(j)
+    keys=sorted(keys)
+
+    value_count=[]
+    for i in keys:
+      count=0
+      for j in x:
+        if i in j[4]:
+          count+=1
+      value_count.append(count)
+
+    answer9={keys[i]:value_count[i] for i in range(len(value_count))}
+    
+    return answer9
 
 
 def pregunta_10():
@@ -218,7 +389,13 @@ def pregunta_10():
 
 
     """
-    return
+    col1=[i[0] for i in x]
+    col4=[len(i[3]) for i in x]
+    col5=[len(i[4]) for i in x]
+    zipped=zip(col1,col4,col5)
+    answer10=[*zipped]
+    
+    return answer10
 
 
 def pregunta_11():
@@ -239,7 +416,24 @@ def pregunta_11():
 
 
     """
-    return
+    letters=[]
+    for row in x:
+      for i in row[3]:
+        if i not in letters:
+            letters.append(i)
+    letters.sort()
+
+    count_list=[]
+    for i in letters:
+      count=0
+      for j in x:
+        if i in j[3]:
+          count+=int(j[1])
+      count_list.append(count)
+
+    answer11={letters[i]:count_list[i] for i in range(len(letters))}
+    
+    return answer11
 
 
 def pregunta_12():
@@ -257,4 +451,22 @@ def pregunta_12():
     }
 
     """
-    return
+    letters=[]
+    for row in x:
+      for i in row[0]:
+        if i not in letters:
+            letters.append(i)
+    letters.sort()
+
+    count_value=[]
+    for i in letters:
+      count=0
+      for j in x:
+        if i==j[0]:
+          for k in j[4]:
+            count+=int(j[4][k])
+      count_value.append(count)
+
+    answer12={letters[i]:count_value[i] for i in range(len(letters))}
+    
+    return answer12
